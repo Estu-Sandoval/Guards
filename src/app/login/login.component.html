@@ -1,0 +1,11 @@
+<form [formGroup]="datosUsuarios">
+    <span class="p-float-label">
+        <input id="float-input" type="text" pInputText formControlName="username"> 
+        <label for="float-input">Username</label>
+    </span>
+    <span class="p-float-label">
+        <input id="float-input" type="text" pInputText formControlName="password">
+        <label for="float-input">Password</label>
+    </span>
+</form>
+<button pButton type="button" label="Iniciar Sesión" class="p-button-success" (click)="iniciaSesion()"></button>
