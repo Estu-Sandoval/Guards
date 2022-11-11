@@ -1,4 +1,7 @@
 <p-menubar [model]="items">
-    <button pButton type="button" label="Iniciar Sesión" class="p-button-success" (click)="goToLogin()"></button>
+    <button pButton type="button" label="Iniciar Sesión" class="p-button-success" (click)="goToLogin()" *ngIf="!logueado"></button>
+    <button pButton type="button" label="Cerrar Sesión" class="p-button-success" (click)="CerrarSesion()" *ngIf="logueado"></button>
+    <button pButton type="button" label="Iniciar Con Google" class="p-button-success" (click)="iniciarSesionConGoogle()"></button>
+    <button pButton type="button" label="Cerrar Con Google" class="p-button-success" (click)="cerrarSesionConGoogle()"></button>
 </p-menubar>
 <router-outlet></router-outlet>

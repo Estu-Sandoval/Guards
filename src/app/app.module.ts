@@ -17,6 +17,8 @@ import {ButtonModule} from 'primeng/button';
 import {MenubarModule} from 'primeng/menubar';
 import { LoginComponent } from './login/login.component';
 import { PatovaGuard } from './patova.guard';
+import { CookieService } from 'ngx-cookie-service';
+import { AngularFireAuthModule } from '@angular/fire/compat/auth';
 
 @NgModule({
   declarations: [
@@ -33,9 +35,10 @@ import { PatovaGuard } from './patova.guard';
     ReactiveFormsModule,
     AppRoutingModule,
     ButtonModule,
-    MenubarModule
+    MenubarModule,
+    AngularFireAuthModule
   ],
-  providers: [LoginService,PatovaGuard],
+  providers: [LoginService,PatovaGuard,CookieService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

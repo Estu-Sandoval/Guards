@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
 import { LoginService } from '../login.service';
 import { Usuarios } from '../usuarios';
 
@@ -19,7 +20,7 @@ export class LoginComponent implements OnInit {
     }
   )
 
-  constructor(private servicioUsuarios:LoginService) { }
+  constructor(private servicioUsuarios:LoginService,private router: Router) { }
 
   ngOnInit(): void {
     this.servicioUsuarios.getUsuarios().subscribe(
@@ -29,6 +30,7 @@ export class LoginComponent implements OnInit {
 
   iniciaSesion(){
     this.servicioUsuarios.login(this.datosUsuarios,this.colUsuarios)
+    window.location.reload()
   }
 
 }

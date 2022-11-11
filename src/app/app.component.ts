@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { MenuItem } from 'primeng/api';
+import { LoginWithGoogleService } from './login-with-google.service';
+import { LoginService } from './login.service';
 
 @Component({
   selector: 'app-root',
@@ -9,10 +11,11 @@ import { MenuItem } from 'primeng/api';
 })
 export class AppComponent implements OnInit{
 
-  constructor(private router:Router){}
+  constructor(private router:Router, private login:LoginService,private google:LoginWithGoogleService){}
   items:MenuItem[] = [];
 
   ngOnInit(): void {
+    this.google.getUser()
     this.items = [
       {
         label:"Home",
@@ -33,7 +36,24 @@ export class AppComponent implements OnInit{
   }
   title = 'guardian';
 
+  logueado = this.login.estaLogueado()
+
   goToLogin(){
     this.router.navigateByUrl("Login")
+  }
+
+  iniciarSesionConGoogle(){
+    this.google.loginWithGoogle()
+  }
+
+  cerrarSesionConGoogle(){
+    this.google.logOut()
+  }
+
+
+  CerrarSesion(){
+    this.login.logOut()
+    this.router.navigateByUrl("/")
+    this.logueado = this.login.estaLogueado()
   }
 }

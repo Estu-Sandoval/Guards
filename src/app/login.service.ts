@@ -3,6 +3,7 @@ import {AngularFirestore, AngularFirestoreCollection} from '@angular/fire/compat
 import { Usuarios } from './usuarios';
 import { map } from 'rxjs'
 import { FormGroup, NgForm } from '@angular/forms';
+import { CookieService } from 'ngx-cookie-service';
 
 @Injectable({
   providedIn: 'root'
@@ -13,7 +14,7 @@ export class LoginService {
 
   private coleccionUsuarios: AngularFirestoreCollection<Usuarios>
 
-  constructor(private db:AngularFirestore) {
+  constructor(private db:AngularFirestore, private cookieSevice:CookieService) {
     this.coleccionUsuarios = this.db.collection("usuarios");
   }
 
@@ -31,6 +32,7 @@ export class LoginService {
           if(form.value.username === usuario.username){
             if(form.value.password === usuario.password){
               this.isLoged = true
+              this.cookieSevice.set("sesionIniciada",this.isLoged.toString())
               texto = "Inició Sesión"
             }
           }
@@ -41,6 +43,29 @@ export class LoginService {
   }
 
   estaLogueado(){
+    if(this.cookieSevice.get("sesionIniciada")==="true"){
+      this.isLoged = true
+    }
     return this.isLoged
   }
+
+
+  logOut(){
+    this.isLoged = false
+    this.cookieSevice.set("sesionIniciada",this.isLoged.toString())
+  }
 }
+
+
+
+
+
+
+
+
+//import { CookieService } from 'ngx-cookie-service';
+//private cookie:CookieService
+//this.cookie.set("EstaLogueado",this.isLoged.toString())
+// if(this.cookie.get("EstaLogueado")==="true"){
+//   this.isLoged = true
+// }
