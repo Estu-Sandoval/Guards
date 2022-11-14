@@ -11,10 +11,13 @@ import { LoginService } from './login.service';
 })
 export class AppComponent implements OnInit{
 
+  logueado = false
+
   constructor(private router:Router, private login:LoginService,private google:LoginWithGoogleService){}
   items:MenuItem[] = [];
 
   ngOnInit(): void {
+    this.logueado = this.login.estaLogueado()
     this.google.getUser()
     this.items = [
       {
@@ -36,7 +39,7 @@ export class AppComponent implements OnInit{
   }
   title = 'guardian';
 
-  logueado = this.login.estaLogueado()
+
 
   goToLogin(){
     this.router.navigateByUrl("Login")
@@ -44,6 +47,7 @@ export class AppComponent implements OnInit{
 
   iniciarSesionConGoogle(){
     this.google.loginWithGoogle()
+    this.ngOnInit()
   }
 
   cerrarSesionConGoogle(){
@@ -54,6 +58,6 @@ export class AppComponent implements OnInit{
   CerrarSesion(){
     this.login.logOut()
     this.router.navigateByUrl("/")
-    this.logueado = this.login.estaLogueado()
+    this.ngOnInit()
   }
 }

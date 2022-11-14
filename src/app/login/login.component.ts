@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit} from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { LoginService } from '../login.service';
@@ -30,7 +30,9 @@ export class LoginComponent implements OnInit {
 
   iniciaSesion(){
     this.servicioUsuarios.login(this.datosUsuarios,this.colUsuarios)
-    window.location.reload()
+    this.router.navigateByUrl("/").then(
+      reDirectTo=>window.location.reload()
+    )
   }
 
 }
